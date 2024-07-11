@@ -118,9 +118,19 @@ public class CUI {
 	}
 
 	private void checkOutRoom() throws IOException, AppException {
+		System.out.println("Input staying date");
+		System.out.print("> ");
+		String dateStr = reader.readLine();
+		
+		// Validate input
+		Date stayingDate = DateUtil.convertToDate(dateStr);
+		if (stayingDate == null) {
+			System.out.println("Invalid input");
+			return;
+		}
+
 		System.out.println("Input room number");
 		System.out.print("> ");
-
 		String roomNumber = reader.readLine();
 
 		if (roomNumber == null || roomNumber.length() == 0) {
@@ -129,8 +139,10 @@ public class CUI {
 		}
 
 		CheckOutRoomForm checkoutRoomForm = new CheckOutRoomForm();
+		checkoutRoomForm.setStayingDate(stayingDate);
 		checkoutRoomForm.setRoomNumber(roomNumber);
 		checkoutRoomForm.checkOut();
+
 		System.out.println("Check-out has been completed.");
 	}
 
