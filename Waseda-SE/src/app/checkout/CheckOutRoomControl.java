@@ -18,14 +18,14 @@ import domain.room.RoomException;
  */
 public class CheckOutRoomControl {
 	
-	public String checkOut(String roomNumber) throws AppException {
+	public String checkOut(Date stayingDate, String roomNumber) throws AppException {
 		try {
 			//Clear room
 			RoomManager roomManager = getRoomManager();
 			roomManager.removeCustomer(roomNumber);
 			//Consume payment
 			PaymentManager paymentManager = getPaymentManager();
-			paymentManager.consumePayment(null, roomNumber);
+			paymentManager.consumePayment(stayingDate, roomNumber);
 			return roomNumber;
 		}
 		catch (RoomException e) {

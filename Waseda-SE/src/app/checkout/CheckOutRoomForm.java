@@ -4,6 +4,7 @@
 package app.checkout;
 
 import app.AppException;
+import java.util.Date;
 
 /**
  * Form class for Check-out Customer
@@ -18,11 +19,11 @@ public class CheckOutRoomForm {
 	}
 
 	private String roomNumber;
+	Date stayingDate;
 
 	public String checkOut() throws AppException {
 		CheckOutRoomControl checkOutRoomControl = getCheckOutRoomControl();
-		return checkOutRoomControl.checkOut(roomNumber);
-
+		return checkOutRoomControl.checkOut(stayingDate, roomNumber);
 	}
 
 	public String getRoomNumber() {
