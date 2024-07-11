@@ -19,7 +19,7 @@ public class CheckOutRoomForm {
 	}
 
 	private String roomNumber;
-	Date stayingDate;
+	private Date stayingDate;
 
 	public String checkOut() throws AppException {
 		CheckOutRoomControl checkOutRoomControl = getCheckOutRoomControl();
@@ -32,6 +32,14 @@ public class CheckOutRoomForm {
 
 	public void setRoomNumber(String roomNumber) {
 		this.roomNumber = roomNumber;
+	}
+
+	public Date getStayingDate() {
+		return stayingDate;
+	}
+
+	public void setStayingDate(Date staingDate) {
+		this.stayingDate = staingDate;
 	}
 
 }
