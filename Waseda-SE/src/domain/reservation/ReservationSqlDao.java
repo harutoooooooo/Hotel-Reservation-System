@@ -130,6 +130,31 @@ public class ReservationSqlDao implements ReservationDao {
 		}
 	}
 
+	public void cancelReservation(String reservationNumber) throws ReservationException {
+		StringBuffer sql = new StringBuffer();
+		Statement statement = null;
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			statement = connection.createStatement();
+			sql.append("DELETE FROM ");
+			sql.append(TABLE_NAME);
+			sql.append(" WHERE RESERVATIONNUMBER= '");
+			sql.append(reservationNumber);
+			sql.append("';");
+			statement.executeUpdate(sql.toString());
+		}
+		catch (SQLException e) {
+			ReservationException exception = new ReservationException(
+					ReservationException.CODE_DB_EXEC_QUERY_ERROR, e);
+			exception.getDetailMessages().add("cancelReservation()");
+			throw exception;
+		}
+		finally {
+			close(null, statement, connection);
+		}
+	}
+
 	private Connection getConnection() throws ReservationException {
 		Connection connection = null;
 		try {
