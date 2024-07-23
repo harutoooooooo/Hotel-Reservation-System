@@ -26,6 +26,11 @@ public class ReserveRoomForm {
 		return reserveRoomHandler.makeReservation(stayingDate);
 	}
 
+	public String cancelReservation(String ReservationNumber) throws AppException {
+		ReserveRoomControl reserveRoomHandler = getReserveRoomHandler();
+		return reserveRoomHandler.cancelReservation(ReservationNumber);
+	}
+
 	public Date getStayingDate() {
 		return stayingDate;
 	}
