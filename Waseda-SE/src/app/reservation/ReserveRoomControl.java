@@ -49,8 +49,8 @@ public class ReserveRoomControl {
 		try {
 			//Create reservation
 			ReservationManager reservationManager = getReservationManager();
-			String a = reservationManager.cancelReservation(ReservationNumber);
-			return a;
+			String cancelChecker = reservationManager.cancelReservation(ReservationNumber);
+			return cancelChecker;
 		}
 		catch (ReservationException e) {
 			AppException exception = new AppException("Failed to reserve", e);

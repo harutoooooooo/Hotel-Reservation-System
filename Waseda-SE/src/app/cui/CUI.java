@@ -80,7 +80,7 @@ public class CUI {
 	}
 
 	private void cancelRoom() throws IOException, AppException {
-		String a;
+		String cancelChecker;
 		System.out.println("Input reservation  Number");
 		System.out.print("> ");
 		String reservationNumber = reader.readLine();
@@ -91,9 +91,9 @@ public class CUI {
 		}
 
 		ReserveRoomForm reserveRoomForm = new ReserveRoomForm();
-		a = reserveRoomForm.cancelReservation(reservationNumber);
+		cancelChecker = reserveRoomForm.cancelReservation(reservationNumber);
 
-		if(a.equals("Cancel")) {
+		if(cancelChecker.equals("Cancel")) {
 			System.out.println("Cancel has been completed.");
 		} else {
 			System.out.println("Cancel has not been completed.");
