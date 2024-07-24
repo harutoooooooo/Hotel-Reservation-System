@@ -84,7 +84,6 @@ public class CUI {
 	}
 
 	private void cancelRoom() throws IOException, AppException {
-		String cancelChecker;
 		System.out.println("Input reservation  Number");
 		System.out.print("> ");
 		String reservationNumber = reader.readLine();
@@ -95,14 +94,11 @@ public class CUI {
 		}
 
 		ReserveRoomForm reserveRoomForm = new ReserveRoomForm();
-		cancelChecker = reserveRoomForm.cancelReservation(reservationNumber);
+		String cancelNumber = reserveRoomForm.cancelReservation(reservationNumber);
 
-		if(cancelChecker.equals("Cancel")) {
-			System.out.println("Cancel has been completed.");
-		} else {
-			System.out.println("Cancel has not been completed.");
-		}
-		
+		System.out.println("Reservation has been cancelled");
+		System.out.printf("Cancelled reservation number : ");
+		System.out.println(cancelNumber);
 	}
 
 	private void reserveRoom() throws IOException, AppException {
@@ -127,7 +123,7 @@ public class CUI {
 				System.out.println("Invalid input");
 				return;
 			}
-			
+
 		} catch (DateTimeParseException e) {
 			System.out.println("Invalid input");
 		}
