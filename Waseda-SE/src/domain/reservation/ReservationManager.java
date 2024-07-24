@@ -37,11 +37,11 @@ public class ReservationManager {
 					throw new NullPointerException("reservation");
 				}
 
-				ReservationDao reservationDao = getReservationDao();
-				reservationDao.cancelReservation(ReservationNumber);
+			ReservationDao reservationDao = getReservationDao();
+			reservationDao.cancelReservation(ReservationNumber);
 
-				return "Cancel";
-	}
+			return ReservationNumber;
+		}
 
 	private synchronized String generateReservationNumber() {
 		Calendar calendar = Calendar.getInstance();

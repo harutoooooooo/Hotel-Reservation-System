@@ -14,6 +14,10 @@ import app.checkin.CheckInRoomForm;
 import app.checkout.CheckOutRoomForm;
 import app.reservation.ReserveRoomForm;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * CUI class for Hotel Reservation Systems
  * 
@@ -80,7 +84,6 @@ public class CUI {
 	}
 
 	private void cancelRoom() throws IOException, AppException {
-		String a;
 		System.out.println("Input reservation  Number");
 		System.out.print("> ");
 		String reservationNumber = reader.readLine();
@@ -91,17 +94,15 @@ public class CUI {
 		}
 
 		ReserveRoomForm reserveRoomForm = new ReserveRoomForm();
-		a = reserveRoomForm.cancelReservation(reservationNumber);
+		String cancelNumber = reserveRoomForm.cancelReservation(reservationNumber);
 
-		if(a.equals("Cancel")) {
-			System.out.println("Cancel has been completed.");
-		} else {
-			System.out.println("Cancel has not been completed.");
-		}
-		
+		System.out.println("Reservation has been cancelled");
+		System.out.printf("Cancelled reservation number : ");
+		System.out.println(cancelNumber);
 	}
 
 	private void reserveRoom() throws IOException, AppException {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		System.out.println("Input arrival date in the form of yyyy/mm/dd");
 		System.out.print("> ");
 
@@ -112,6 +113,19 @@ public class CUI {
 		if (stayingDate == null) {
 			System.out.println("Invalid input");
 			return;
+		}
+
+		try {
+			LocalDate inputDate = LocalDate.parse(dateStr, formatter);
+			LocalDate currentDate = LocalDate.now();
+			
+			if (inputDate.isBefore(currentDate)) {
+				System.out.println("Invalid input");
+				return;
+			}
+
+		} catch (DateTimeParseException e) {
+			System.out.println("Invalid input");
 		}
 
 		ReserveRoomForm reserveRoomForm = new ReserveRoomForm();
