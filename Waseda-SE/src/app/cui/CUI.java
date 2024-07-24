@@ -14,6 +14,10 @@ import app.checkin.CheckInRoomForm;
 import app.checkout.CheckOutRoomForm;
 import app.reservation.ReserveRoomForm;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * CUI class for Hotel Reservation Systems
  * 
@@ -102,6 +106,7 @@ public class CUI {
 	}
 
 	private void reserveRoom() throws IOException, AppException {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		System.out.println("Input arrival date in the form of yyyy/mm/dd");
 		System.out.print("> ");
 
@@ -112,6 +117,19 @@ public class CUI {
 		if (stayingDate == null) {
 			System.out.println("Invalid input");
 			return;
+		}
+
+		try {
+			LocalDate inputDate = LocalDate.parse(dateStr, formatter);
+			LocalDate currentDate = LocalDate.now();
+			
+			if (inputDate.isBefore(currentDate)) {
+				System.out.println("Invalid input");
+				return;
+			}
+			
+		} catch (DateTimeParseException e) {
+			System.out.println("Invalid input");
 		}
 
 		ReserveRoomForm reserveRoomForm = new ReserveRoomForm();
