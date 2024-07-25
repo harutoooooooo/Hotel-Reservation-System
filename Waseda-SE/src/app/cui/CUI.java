@@ -105,36 +105,36 @@ public class CUI {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		System.out.println("Input arrival date in the form of yyyy/mm/dd");
 		System.out.print("> ");
-
+	
 		String dateStr = reader.readLine();
-
+	
 		// Validate input
 		Date stayingDate = DateUtil.convertToDate(dateStr);
 		if (stayingDate == null) {
 			System.out.println("Invalid input");
 			return;
 		}
-
+	
 		try {
 			LocalDate inputDate = LocalDate.parse(dateStr, formatter);
 			LocalDate currentDate = LocalDate.now();
 			
 			if (inputDate.isBefore(currentDate)) {
-				System.out.println("Invalid input");
+				System.out.println("Invalid input: Date is in the past");
 				return;
 			}
-
+	
+			ReserveRoomForm reserveRoomForm = new ReserveRoomForm();
+			reserveRoomForm.setStayingDate(stayingDate);
+			String reservationNumber = reserveRoomForm.submitReservation();
+	
+			System.out.println("Reservation has been completed.");
+			System.out.println("Arrival (staying) date is " + DateUtil.convertToString(stayingDate) + ".");
+			System.out.println("Reservation number is " + reservationNumber + ".");
+	
 		} catch (DateTimeParseException e) {
 			System.out.println("Invalid input");
 		}
-
-		ReserveRoomForm reserveRoomForm = new ReserveRoomForm();
-		reserveRoomForm.setStayingDate(stayingDate);
-		String reservationNumber = reserveRoomForm.submitReservation();
-
-		System.out.println("Reservation has been completed.");
-		System.out.println("Arrival (staying) date is " + DateUtil.convertToString(stayingDate) + ".");
-		System.out.println("Reservation number is " + reservationNumber + ".");
 	}
 
 	private void checkInRoom() throws IOException, AppException {
